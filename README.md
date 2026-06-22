@@ -61,6 +61,43 @@ Esse é o schema (model) de Funcionario, utilizado para passar para os métodos 
 ## Ambiente
 Este é um diagrama do ambiente que deverá ser montado no Microsoft Azure, utilizando o App Service para a API, SQL Database para o banco relacional e Azure Table para armazenar os logs.
 
+## Estrutura 
+
+```
+trilha-net-azure-desafio/
+│
+├── .vscode/
+│
+├── Context/
+│   └── RHContext.cs              → DbContext do EF Core, com DbSet<Funcionario>
+│
+├── Controllers/
+│   └── FuncionarioController.cs  → os 4 endpoints (GET, POST, PUT, DELETE) + lógica de log
+│
+├── Imagens/
+│   ├── diagrama_classe.png
+│   ├── diagrama_api.png
+│   └── swagger.png
+│
+├── Migrations/
+│   └── (arquivos gerados pelo `dotnet ef migrations add`)
+│
+├── Models/
+│   ├── Funcionario.cs             → classe principal (Id, Nome, Endereco, Ramal, EmailProfissional, Departamento, Salario, DataAdmissao)
+│   └── FuncionarioLog.cs          → herda de Funcionario + implementa ITableEntity (PartitionKey, RowKey, Timestamp, ETag, TipoAcao, Acao, DataAlteracao)
+│
+├── Properties/
+│   └── launchSettings.json
+│
+├── .gitignore
+├── Program.cs                     → configuração do DbContext (SQL Server) + Swagger
+├── README.md
+├── appsettings.json               → connection strings (SQL + Storage Account)
+├── appsettings.Development.json
+└── trilha-net-azure-desafio.csproj
+```
+
+
 ![Diagrama da classe Funcionario](Imagens/diagrama_api.png)
 
 
